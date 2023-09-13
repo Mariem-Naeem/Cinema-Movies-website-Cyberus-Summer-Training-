@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Search Bar Example</title>
+</head>
+<body>
+    <form action="/" method="get">
+        <input type="text" name="query" placeholder="Enter your search term">
+        <button type="submit">Search</button>
+    </form>
+    {% if query %}
+        <p>You searched for: {{ query }}</p>
+    {% endif %}
+    {% if results %}
+    
+        <ul>
+            {% for result in results %}
+            <div class="col-md-6 col-lg-4 form-container p-4 mt-5 me-1">
+                <div class="row">
+                    <div class="col-3">
+                        <img
+                            src="{{ url_for('static', filename=result[5] )}}"
+                            alt=""
+                            width="150"
+                            class="img-fluid"
+                        />
+                    </div>
+           
+            <div class="col">
+                <h2>Title: {{ result[2] }}</h2>
+                <p>Description: {{result[3]}}</p>
+                <small>Price:{{result[4]}}</small>
+                <a class="btn btn-primary float-end" href="{{ url_for('getGadget', gadget_id=result[0]) }}"
+                >View</a >
+                
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
